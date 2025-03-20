@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    {% block miscellanea %}
+    {% endblock %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style2.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<header>
+    <nav>
+    <div id="logo-container"> 
+        <a href="/">
+        <img id="logo" src="{% static 'logo.png' %}" alt="Logo">
+        </a>
+        <span id="brand-name">AEROLOT</span>
+    </div>
+        
+        <div id="nav-content">
+        <a href="/search" class="button">Szukaj lotów</a>
+        {% block login %}
+        {% endblock %}
+        </div>
+    </nav>
+</header>
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+<footer>
+     &copy; {% now "Y" %} Aerolot 
+    <a href="/privacy" id="pp">Polityka Prywatności</a>
+</footer>
+
+</body>
+</html>

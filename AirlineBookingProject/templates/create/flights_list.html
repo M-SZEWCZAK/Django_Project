@@ -1,0 +1,46 @@
+{% extends 'create/base_create.html' %}
+{% load static %}
+
+{% block title %}
+    Flightslist
+{% endblock %}
+{% block content %}
+    <div class="maindiv">
+    <h1>Istniejące loty</h1>
+    {% for flight in flights %}
+        <h3>Lot o identyfikatorze {{ flight.flight_id }}</h3>
+         <table class="fd">
+                    <tbody>
+                        <tr>
+                            <td>{{ flight.departure_time|date:"Y-m-d" }}</td>
+                            <td></td>
+                            <td>{{ flight.arrival_time|date:"Y-m-d" }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ flight.departure_time|time:"H:i" }}</td>
+                            <td>-----{{ flight.duration }}----></td>
+                            <td>{{ flight.arrival_time|time:"H:i" }}</td>
+                            <td>{{ flight.price }} PLN</td>
+                            <td><a href="{% url 'edit_flight' flight.flight_id %}" class="button">Edytuj</a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ flight.origin }}</td>
+                            <td></td>
+                            <td>{{ flight.destination }}</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+    {% endfor %}
+    <p>
+     <a href="{% url 'home_management' %}" class="button">Wróć do strony zarządania</a>
+     <a href="{% url 'create_flight' %}" class="button">Dodaj lot</a>
+        {%  if flag == 0 %}
+        <a href='/flights_list_fut' class="button">Pokaż tylko przyszłe loty</a>
+        {% else %}
+            <a href='/flights_list' class="button">Pokaż wszystkie loty</a>
+        {% endif %}
+    </p>
+    </div>
+
+{% endblock %}

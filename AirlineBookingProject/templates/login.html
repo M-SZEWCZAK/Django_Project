@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style2.css' %}">
+</head>
+<body>
+<div class="login">
+    <h2 id="lh2">ZALOGUJ SIĘ</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Zaloguj się</button>
+    </form>
+    <h2>Nie masz konta?</h2>
+    <a href="/register" class="button">Zarejstruj się</a>
+    <h2><a href="/reset" id="toreset">Nie pamiętam hasła</a></h2>
+</div>
+    
+</body>
+</html>

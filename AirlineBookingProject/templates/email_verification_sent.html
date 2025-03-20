@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style2.css' %}">
+</head>
+<body>
+    <div class="message-page">
+        <h1>Rejestracja udała się!</h1>
+        <p>Wysłaliśmy e-mail na adres {{ user.email }} zawierający link weryfikacyjny. Po jego kliknięciu twoje konto zostanie
+        aktywowane.</p>
+    </div>
+</body>
+</html>

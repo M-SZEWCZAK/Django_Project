@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    My account
+{% endblock %}
+{% block login %}
+        Welcome, {{ request.user.email }}! <a href="/logout" class="button">Wyloguj się</a>
+{% endblock %}
+{% block content %}
+    <div class="maindiv">
+    <h2>Moje rezerwacje</h2>
+    <ul>
+    {%  for res in bookings %}
+        <li class="liacc">{{ res.flight_id.origin }} ---> {{ res.flight_id.destination }} wylot: {{ res.flight_id.departure_time|date:"Y-m-d"  }} {{ res.flight_id.departure_time|time:"H:i" }}  <a href="{% url 'reservation' res.booking_id %}" class="button2" >Szczegóły rezerwacji</a> </li>
+        <li class="liaccm">{{ res.flight_id.origin }} ---> {{ res.flight_id.destination }} wylot: {{ res.flight_id.departure_time|date:"Y-m-d"  }} <a href="{% url 'reservation' res.booking_id %}" class="button2" >Szczegóły</a> </li>
+
+    {% endfor %}
+    </ul>
+    </div>
+{% endblock %}

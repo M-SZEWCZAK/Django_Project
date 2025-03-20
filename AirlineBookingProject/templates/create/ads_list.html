@@ -1,0 +1,36 @@
+{% extends 'create/base_create.html' %}
+{% load static %}
+
+{% block title %}
+    Adslist
+{% endblock %}
+{% block content %}
+    <h1>Istniejące reklamy</h1>
+    {% for ad in ads %}
+         <table class="fd">
+                    <tbody>
+                        <tr>
+                            <td>ID: {{ ad.ad_id }}</td>
+                            <td colspan="2">{{ ad.ad_title }}</td>
+                        </tr>  
+                        <tr>
+                            <td><a href="{% url 'edit_ad' ad.ad_id %}" class="button">Edytuj</a> </td>
+                            <td><a href="{% url 'ad_details' ad.ad_id %}" class="button">Szczegóły</a> </td>
+                            <td> 
+                            <form method="post" action="{% url 'delete_ad' ad.ad_id %}" >
+                                {% csrf_token %}
+                                 <button type="submit" class="button">Usuń</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        
+    {% endfor %}
+    <p>
+    <a href="{% url 'home_management' %}" class="button">Wróć do strony zarządania</a>
+    <a href="{% url 'create_ad' %}" class="button">Dodaj reklamę</a>
+    </p>
+    
+
+{% endblock %}

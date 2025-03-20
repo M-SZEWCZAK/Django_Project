@@ -1,0 +1,29 @@
+{%  extends 'base.html' %}
+{% block title %}
+    Booking
+{% endblock %}
+{%  block content %}
+    <div class="maindiv">
+     <form id="booking-form" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div id="passenger-forms">
+            {% for passenger_form in passenger_forms %}
+            <div class="passenger-form">
+                {{ passenger_form.as_p }}
+            </div>
+                 {% if passenger_form.non_field_errors %}
+                        <div class="form-errors">
+                            {% for error in passenger_form.non_field_errors %}
+                                <p class="error">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                
+        {% endfor %}
+        </div>
+
+        <button type="submit">Kontynuuj</button>
+    </form>
+    </div>
+{% endblock %}

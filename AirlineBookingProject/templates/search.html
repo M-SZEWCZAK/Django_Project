@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Search
+{% endblock %}
+{% block login %}
+    {% if request.user.is_authenticated %}
+    Welcome, {{ request.user.email }}! <a href="/logout" class="button">Wyloguj się</a>
+        <a href="/myaccount" class="button">Moje konto</a>
+{% else %}
+    <a href="/register" class="button"> Zarejestruj się</a>
+    <a href="/login" class="button"> Zaloguj się</a>
+{% endif %}
+   
+
+{% endblock %}
+{% block content %}
+    <div class="maindiv">
+    <div id="searchform">
+    <h1>Wyszukaj lot</h1>
+    
+    <form id="sf" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Szukaj</button>
+    </form>
+    </div>
+
+    <script>
+    document.getElementById('sf').addEventListener("submit", function (event){
+        let isValid=true
+        const form=event.target
+         const requiredFields = form.querySelectorAll('[required]');
+                requiredFields.forEach(function(field) {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        alert('Proszę wypełnić wszystkie wymagane pola!');
+                    }
+                });
+         const mpField=form.querySelector('[name="miejsce_przylotu"]')
+         const mwField=form.querySelector('[name="miejsce_wylotu"]')
+         if(mpField && mwField){
+             const mwValue=mwField.value.trim()
+             const mpValue=mpField.value.trim()
+             if(mpValue===mwValue){
+                 isValid=false;
+                 alert("Miejsce przylotu musi być różne od miejsca wylotu!");
+             }
+         }
+         const dtField=form.querySelector('[name="data"]')
+         if(dtField){
+             const dtValue=dtField.value.trim()
+             let currdate=new Date();
+             currdate.setHours(0, 0, 0, 0);
+             let dtDate=new Date(dtValue)
+             dtDate.setHours(0,0,0,0)
+             if(dtDate<currdate){
+                 isValid=false;
+                 alert("Wybrany dzień minął!");
+
+             }
+
+         }
+         if (!isValid) {
+                event.preventDefault(); // Prevent form submission if validation fails
+         }
+        
+
+    })
+    </script>
+    </div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Flight
+{% endblock %}
+{% block login %}
+    {% if request.user.is_authenticated %}
+    Welcome, {{ request.user.email }}! <a href="/logout" class="button">Wyloguj się</a>
+        <a href="/myaccount" class="button">Moje konto</a>
+{% else %}
+    <a href="/register" class="button"> Zarejestruj się</a>
+    <a href="/login" class="button"> Zaloguj się</a>
+{% endif %}
+   
+
+{% endblock %}
+{% block content %}
+    <div class="maindiv">
+    {% if flights %}
+        <h1>Dostępne loty</h1>
+        <p>Wylot: {{ departure }} Przylot: {{ arrival }}</p>
+        <p>Data wylotu: {{ date }}</p>
+        {% for flight in flights %}
+                <table class="fd">
+                    <tbody>
+                        <tr>
+                            <td>{{ flight.departure_time|date:"Y-m-d" }}</td>
+                            <td></td>
+                            <td>{{ flight.arrival_time|date:"Y-m-d" }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ flight.departure_time|time:"H:i" }}</td>
+                            <td>-----{{ flight.duration }}----></td>
+                            <td>{{ flight.arrival_time|time:"H:i" }}</td>
+                            <td>{{ flight.price }} PLN</td>
+                            <td><a href="{% url 'booking' flight.flight_id %}" class="button2">Wybierz</a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ flight.origin }}</td>
+                            <td></td>
+                            <td>{{ flight.destination }}</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+        {% endfor %}
+    {% else %}
+        {% if next_flights %}
+            <h1>Brak lotów w zadanym terminie</h1>
+            <h2>Najbliższe dostępne loty</h2>
+            {% for flight in next_flights %}
+            <table class="fd">
+                    <tbody>
+                        <tr>
+                            <td>{{ flight.departure_time|date:"Y-m-d" }}</td>
+                            <td></td>
+                            <td>{{ flight.arrival_time|date:"Y-m-d" }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ flight.departure_time|time:"H:i" }}</td>
+                            <td>-----{{ flight.duration }}----></td>
+                            <td>{{ flight.arrival_time|time:"H:i" }}</td>
+                            <td>{{ flight.price }} PLN</td>
+                            <td><a href="{% url 'booking' flight.flight_id %}">Wybierz</a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ flight.origin }}</td>
+                            <td></td>
+                            <td>{{ flight.destination }}</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            {% endfor %}
+            {% else %}
+            <h1>Brak lotów na trasie  {{ departure }} - {{ arrival }} </h1>
+            <h3><a href="/search">Sprawdź nasze dostępne trasy</a> </h3>
+        {% endif %}
+    {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'create/base_create.html' %}
+{% load static %}
+
+{% block title %}
+    Edit flight
+{% endblock %}
+{% block content %}
+    <h1>Zmień dane Reklamy </h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Zapisz</button>
+    </form>
+    <a href="{% url 'ads_list' %}" class="button">Wróć do listy</a>
+{% endblock %}

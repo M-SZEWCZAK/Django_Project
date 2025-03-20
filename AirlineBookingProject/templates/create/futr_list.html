@@ -1,0 +1,43 @@
+{% extends 'create/base_create.html' %}
+{% load static %}
+{% block title %}
+    Future reservations
+{% endblock %}
+{% block content %}
+    <div class="maindiv">
+	<h1>REZERWACJE NIEZREALIZOWANE</h1>
+    {% for r in res %}
+        <h3>Id rezerwacji: {{ r.booking_id }}</h3>
+        <table class="fd">
+            <tbody>
+                <tr>
+                    <td>
+                        Użytkownik: {{ r.user.email }}
+                    </td>
+                     <td rowspan="4" id="slashed">
+                        <a href="{% url 'reservation_det' r.booking_id 1%}" class="button">Szczegóły</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                       Liczba pasażerów: {{ r.passanger_number }} 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Data: {{ r.flight_id.departure_time|date:"Y-m-d"}} {{ r.flight_id.departure_time|time:"H:i" }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Lot: {{ r.flight_id.flight_code }} , {{ r.flight_id.origin }} -> {{ r.flight_id.destination }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    {% endfor %}
+    <p>
+        <a href="{% url 'home_management' %}" class="button">Wróć do strony zarządania</a>
+    </p>
+    </div>
+{% endblock %}

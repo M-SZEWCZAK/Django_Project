@@ -1,0 +1,17 @@
+{% extends 'create/base_create.html' %}
+{% load static %}
+{% block title %}
+Ad details
+{% endblock %}
+
+{% block content %}
+    <h1> Reklama {{ ad.ad_id }}</h1>
+    <div class="ad">
+        <h3>{{ ad.ad_title }}</h3>
+        <img src="{{ ad.ad_img }}" alt="{{ ad.ad_img }}">
+        <p>{{ ad.ad_content }}</p>
+    </div>
+    <a href="{% url 'edit_ad' ad.ad_id %}" class="button">Edytuj</a>
+    <a href='/ads_list' class="button">Powrót</a>
+    
+{% endblock %}

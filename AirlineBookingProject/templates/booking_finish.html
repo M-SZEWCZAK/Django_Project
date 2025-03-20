@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load index %}
+
+{% block title %}
+    Booking finish
+{% endblock %}
+{% block content %}
+    <div class="maindiv">
+    <h1>Twoja Rezerwacja</h1>
+    <h2>Informacje o locie</h2>
+    <p>{{ flight.origin }} ----> {{ flight.destination }} wylot {{ flight.departure_time|date:"Y-m-d" }} {{ flight.departure_time|time:"H:i" }}</p>
+    <h3>Liczba pasażerów: {{ num_passengers }}</h3>
+    <h2>Dane pasażerów:</h2>
+    {% for passanger in passengers %}
+        <h3>Pasażer {{ forloop.counter }}</h3>
+        <table class="fdc">
+            <tbody>
+                <tr>
+                    <td>{{ passanger.name }}</td>
+                    <td>{{ passanger.surname }}</td>
+                    <td>          </td>
+                    <td>Wiek: {{ passanger.age }} lat</td>
+                    <td>Obywatelstwo: {{ passanger.nationality }}</td>
+                </tr>
+                <tr>
+                    <td colspan="5">Wybrany bagaż: {{ luggages|index:forloop.counter0 }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="fdm">
+            <tbody>
+                <tr>
+                    <td>{{ passanger.name }}</td>
+                    <td>{{ passanger.surname }}</td>
+                </tr>
+                <tr>
+                    <td>Wiek: {{ passanger.age }} lat</td>
+                    <td>Obywatelstwo: {{ passanger.nationality }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Wybrany bagaż: {{ luggages|index:forloop.counter0 }}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endfor %}
+    <h4>Cena końcowa: {{ total_price }} PLN</h4>
+    <a href="/" class="button">Strona Główna</a>
+    <a href="/search" class="button">Szukaj lotów</a>
+    <a href="/myaccount" class="button">Moje konto</a>
+
+    </div>
+{% endblock %}

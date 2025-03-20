@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Privacy
+{% endblock %}
+{% block login %}
+    {% if request.user.is_authenticated %}
+        <span id="welcome">Welcome, {{ request.user.email }}! </span><a href="/logout" class="button">Wyloguj się</a>
+        <a href="/myaccount" class="button">Moje konto</a>
+        {% if request.user.is_superuser %}
+            <a href="/home_managment" class="button">Zarządanie</a>
+            {% endif %}
+    {% endif %}
+{% if not request.user.is_authenticated %}
+    <a href="/register" class="button"> Zarejestruj się</a>
+    <a href="/login" class="button"> Zaloguj się</a>
+{% endif %}
+
+
+{% endblock %}
+{% block content %}
+    <div class="privcont">
+<h1 id="privhead">POLITYKA PRYWATNOŚCI</h1>
+    <p>
+    Linia Lotnicza Aerolot szanuje prywatność swoich klientów i zobowiązuje się do ochrony danych osobowych zgodnie
+        z obowiązującymi przepisami prawa, w tym Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679
+        z dnia 27 kwietnia 2016 r. (RODO). Niniejsza Polityka Prywatności wyjaśnia, jakie dane osobowe zbieramy,
+        w jaki sposób je wykorzystujemy, przechowujemy i chronimy.
+    </p>
+    <h2>Administrator danych osobowych</h2>
+    <p>
+    Administratorem Twoich danych osobowych jest Aerolot
+        <ul>
+        <li>Adres: Warszawa, al.Jerozolimskie 65/79</li>
+        <li>E-mail: rodo@aerolot.pl</li>
+        <li>Telefon: +48 013 102 004</li>
+        </ul>
+    </p>
+    <h2> Jakie dane zbieramy</h2>
+    <p>
+        Podczas korzystania z naszych usług zbieramy różne kategorie danych osobowych, w tym:
+        <ul>
+        <li><strong>Dane identyfikacyjne:</strong>
+            <ul>
+                <li>Imię</li>
+                <li>Nazwisko</li>
+                <li>Data urodzenia</li>
+                <li>Numer dokumentu tożsamości (np. paszport)</li>
+            </ul>
+        </li>
+        <li><strong>Dane kontaktowe:</strong>
+            <ul>
+                <li>Adres e-mail</li>
+                <li>Numer telefonu</li>
+                <li>Adres zamieszkania</li>
+            </ul>
+        </li>
+        <li><strong>Dane płatnicze:</strong>
+            <ul>
+                <li>Informacje o karcie kredytowej/debetowej</li>
+                <li>Inne metody płatności</li>
+            </ul>
+        </li>
+        <li><strong>Dane podróży:</strong>
+            <ul>
+                <li>Informacje o rezerwacjach</li>
+                <li>Trasy lotów</li>
+                <li>Preferencje podróży</li>
+            </ul>
+        </li>
+        <li><strong>Dane techniczne:</strong>
+            <ul>
+                <li>Adres IP</li>
+                <li>Pliki cookies</li>
+                <li>Dane urządzeń i przeglądarek</li>
+            </ul>
+        </li>
+        <li><strong>Dane specjalne (opcjonalne):</strong>
+            <ul>
+                <li>Informacje o stanie zdrowia (np. potrzeby specjalne podczas lotu)</li>
+            </ul>
+        </li>
+    </ul>
+    </p>
+    <h2>Cel przetwarzania danych</h2>
+        <p>
+    Twoje dane osobowe przetwarzamy w następujących celach:
+    <ul>
+        <li><strong>Rezerwacja i obsługa podróży:</strong> Tworzenie rezerwacji, realizacja płatności, wysyłanie potwierdzeń.</li>
+        <li><strong>Obsługa klienta:</strong> Odpowiadanie na pytania i wnioski, udzielanie informacji o usługach.</li>
+        <li><strong>Marketing:</strong> Przesyłanie ofert specjalnych, newsletterów (po wyrażeniu zgody).</li>
+        <li><strong>Zgodność z przepisami prawa:</strong> Wypełnianie obowiązków wynikających z przepisów, np. w kontekście bezpieczeństwa lotów.</li>
+        <li><strong>Personalizacja usług:</strong> Dostosowanie naszych ofert i doświadczenia użytkownika do Twoich preferencji.</li>
+    </ul>
+    </p>
+    <h2>Podstawa prawna przetwarzania</h2>
+    <p>
+        Przetwarzamy dane osobowe na podstawie:
+        <ul>
+        <li><strong>Umowy:</strong> W celu realizacji umowy przewozu lotniczego.</li>
+        <li><strong>Zgody:</strong> W przypadku działań marketingowych.</li>
+        <li><strong>Obowiązku prawnego:</strong> Wypełnianie zobowiązań wynikających z przepisów.</li>
+        <li><strong>Prawnie uzasadnionego interesu:</strong> Analiza danych w celu poprawy naszych usług.</li>
+    </ul>
+    </p>
+    <h2> Udostępnianie danych osobowych</h2>
+    <p>
+        Twoje dane mogą być udostępniane następującym podmiotom:
+        <ul>
+         <li><strong>Partnerom biznesowym:</strong> np. firmy obsługujące płatności, operatorzy systemów rezerwacyjnych.</li>
+        <li><strong>Organom publicznym i służbom granicznym:</strong> zgodnie z przepisami prawa.</li>
+        <li><strong>Podwykonawcom świadczącym usługi na naszą rzecz:</strong> np. firmy kurierskie, IT.</li>
+    </ul>
+    </p>
+    <h2>
+        Przechowywanie danych
+    </h2>
+    <p>
+        Twoje dane będą przechowywane przez okres niezbędny do realizacji celu ich przetwarzania, a po jego zakończeniu:
+        <ul>
+        <li>W celach związanych z umową – przez okres obowiązywania umowy oraz wymagany przez przepisy prawa (np. księgowe).</li>
+        <li>W celach marketingowych – do momentu wycofania zgody.</li>
+    </ul>
+    </p>
+    <h2>Twoje prawa</h2>
+    <p>
+        Masz prawo do:
+        <ul>
+          <li><strong>Dostępu do danych:</strong> Możesz uzyskać kopię swoich danych osobowych.</li>
+        <li><strong>Sprostowania danych:</strong> Poprawienia nieprawidłowych lub niekompletnych danych.</li>
+        <li><strong>Usunięcia danych:</strong> W określonych sytuacjach możesz zażądać usunięcia swoich danych („prawo do bycia zapomnianym”).</li>
+        <li><strong>Ograniczenia przetwarzania:</strong> Żądania czasowego wstrzymania przetwarzania danych.</li>
+        <li><strong>Przenoszenia danych:</strong> Otrzymania danych w formacie umożliwiającym ich przeniesienie do innego administratora.</li>
+        <li><strong>Sprzeciwu wobec przetwarzania:</strong> Zwłaszcza w przypadku działań marketingowych.</li>
+    </ul>
+        Aby skorzystać ze swoich praw, skontaktuj się z nami pod adresem rodo@aerolot.pl.
+    </p>
+        <h2>Pliki cookies</h2>
+    <p>
+        Nasza strona internetowa używa plików cookies w celu:
+        <ul>
+        <li>
+            Poprawy funkcjonalności strony.
+        </li>
+        <li>
+            Analizy ruchu na stronie.
+        </li>
+        <li>
+            Wyświetlania spersonalizowanych reklam (zgodnie z wyrażoną zgodą).
+        </li>
+    </ul>
+        Możesz zarządzać ustawieniami plików cookies w przeglądarce internetowej.
+    </p>
+    <h2>Ochrona danych</h2>
+    <p>
+        Stosujemy środki techniczne i organizacyjne w celu ochrony Twoich danych przed nieuprawnionym dostępem,
+        utratą, zmianą lub zniszczeniem
+    </p>
+    <h2>
+        Zmiany w Polityce Prywatności
+    </h2>
+    <p>
+        Zastrzegamy sobie prawo do wprowadzania zmian w niniejszej Polityce Prywatności. Aktualna wersja dokumentu
+        zawsze będzie dostępna na naszej stronie internetowej.
+    </p>
+    </div>
+{% endblock %}

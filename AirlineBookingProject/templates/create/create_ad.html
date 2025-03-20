@@ -1,0 +1,16 @@
+{% extends 'create/base_create.html' %}
+{% load static %}
+
+{% block title %}
+    Create Ad
+{% endblock %}
+{% block content %}
+    <h1>Dodaj Nową Reklamę</h1>
+    <form id="createad" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Zapisz</button>
+    </form>
+    <a href="{% url 'ads_list' %}" class="button">Wróć do listy</a>
+    
+{% endblock %}

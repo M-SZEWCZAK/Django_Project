@@ -1,0 +1,92 @@
+{% extends 'create/base_create.html' %}
+{% load static %}
+
+{% block title %}
+    Create flight
+{% endblock %}
+{% block content %}
+    <h1>Dodaj Nowy Lot</h1>
+    <form id="ef" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Zapisz</button>
+    </form>
+    <a href="{% url 'flights_list' %}" class="button">Wróć do listy</a>
+    <script>
+   document.addEventListener("DOMContentLoaded", function () {
+        console.log("JS loaded after DOM is ready");
+        document.getElementById('ef').addEventListener("submit", function (event) {
+            let isValid = true;
+            const form = event.target;
+            console.log("JS loaded")
+            const mpField = form.querySelector('[name="origin"]');
+            const mwField = form.querySelector('[name="destination"]');
+            console.log("origin", mpField)
+            console.log("destination", mwField)
+            if (mpField && mwField) {
+                const mpValue = mpField.value.trim();
+                const mwValue = mwField.value.trim();
+                if (mpValue === mwValue) {
+                    isValid = false;
+                    alert("Miejsce przylotu musi być różne od miejsca wylotu!");
+                }
+            }
+            const codeField = form.querySelector('[name="flight_code"]');
+            if (codeField) {
+                const codeValue = codeField.value.trim();
+                const codepattern = /^AL[0-9]{2,3}$/;
+                if (!codepattern.test(codeValue)) {
+                    isValid = false;
+                    alert("Kod musi mieć postać AL___, _ oznacza cyfry mogą być 2 lub 3!");
+                }
+            }
+            console.log("code:", codeField)
+            const arrtimeField = form.querySelector('[name="arrival_time"]');
+            if (arrtimeField) {
+                const arrValue = arrtimeField.value.trim();
+                const arrDate = new Date(arrValue.replace("T", " "));
+                if (arrDate < new Date()) {
+                    isValid = false;
+                    alert("Nie można ustawiać lotów w przeszłości!");
+                }
+             }
+
+            const deptimeField = form.querySelector('[name="departure_time"]');
+            if (deptimeField) {
+                const depValue = deptimeField.value.trim();
+                const depDate = new Date(depValue.replace("T", " "));
+                if (depDate < new Date()) {
+                    isValid = false;
+                    alert("Nie można ustawiać lotów w przeszłości!");
+                }
+             }
+
+            const priceField = form.querySelector('[name="price"]');
+            console.log("Price field:", priceField)
+            if (priceField) {
+                const prValue = parseFloat(priceField.value.trim());
+                if (prValue <= 0 || isNaN(prValue)) {
+                    isValid = false;
+                    alert("Cena musi być dodatnia");
+                }
+            }
+
+            const durField = form.querySelector('[name="duration"]');
+            console.log("duration field", durField)
+            if (durField) {
+                const durValue = durField.value.trim();
+                const durpattern = /^[1-9]h$|^[1-2][0-9]h$|^[1-9]h[1-5][0-9]min$|^[1-9]h[1-9]min$|^[1-5][0-9]min$|^[1-2][0-9]h[0-9]min$|^[1-2][0-9]h[1-5][0-9]min$/;
+                if (!durpattern.test(durValue)) {
+                    isValid = false;
+                    alert("Pole duration ma postać czasu podanego w h i min, bez spacji! Brak lotów krótszych niż 10 min i o długości większej niż 24h!");
+                }
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    })
+    </script>
+{% endblock %}
+ 

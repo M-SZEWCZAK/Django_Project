@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    {% block miscellanea %}
+    {% endblock %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style2.css' %}">
+</head>
+<body>
+<header>
+    <div class="hc">
+    AEROLOT MANAGMENT VIEW
+    Welcome, {{ request.user.email }}! <a href="/logout" class="button">Wyloguj się</a>
+    </div>
+    <div class="hm">
+        AEROLOT MANAGMENT VIEW
+        <a href="/logout" class="button">Wyloguj się</a>
+    </div>
+</header>
+<main>
+    <div class="memo">
+        PAMIĘTAJ ! OD TWOJEJ DOKŁADNOŚCI ZALEŻĄ WYNIKI FIRMY! 
+    </div>
+    {% block content %}
+    {% endblock %}
+</main>
+<footer>
+     &copy; {% now "Y" %} Aerolot 
+</footer>
+</body>
+</html>

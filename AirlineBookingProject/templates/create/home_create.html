@@ -1,0 +1,39 @@
+{% extends 'create/base_create.html' %}
+{% load static %}
+
+{% block title %}
+    Home create
+{% endblock %}
+{% block content %}
+    <h1>Możliwe akcje</h1>
+    <div class="maindiv">
+    <div class="manager_panel">
+        <div class="panel_section">
+            <h2>Loty</h2>
+            <p><a href="/create_flight" class="button">Dodaj lot</a></p>
+            <p><a href="/create_mult_flights" class="button">Dodaj wiele lotów</a> </p>
+            <p><a href="/flights_list" class="button">Lista lotów</a></p>
+        </div>
+        <div class="panel_section">
+            <h2>Reklamy</h2>
+            <p><a href="/create_ad" class="button">Dodaj reklamę</a></p>
+            <p><a href="/ads_list" class="button">Lista reklam</a></p>
+        </div>
+        <div class="panel_section">
+            <h2>Rezerwacje</h2>
+            <p><a href="/pastr_list" class="button">Zrealizowane</a></p>
+            <p><a href="/futr_list" class="button">Oczekujące</a></p>
+        </div>
+        <div class="panel_section">
+            <h2>Użytkownicy</h2>
+            <p><a href="/user_list" class="button">Lista użytkowników</a></p>
+        </div>
+        
+        
+
+    </div>
+    <div id="homelink">
+        <a href="/" class="button">Strona Główna</a>
+    </div>
+    </div>
+{% endblock %}

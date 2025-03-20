@@ -1,0 +1,93 @@
+{% extends 'create/base_create.html' %}
+{% load static %}
+{% block title %}
+User list
+{% endblock %}
+{% block content %}
+    <div class="maindiv">
+    <h1>
+        Użytkownicy aktywni
+    </h1>
+    
+        <table class="usertable">
+            <thead>
+                <tr>
+                    <th>
+                        Adres Email
+                    </th>
+                    <th>
+                        Data rejestracji
+                    </th>
+                    <th>
+                        Data ostatniego logowania
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    {% if user.is_active %}
+                        <tr>
+                            <td>
+                                {{ user.email }}
+                            </td>
+                            <td>
+                                {{ user.date_joined }}
+                            </td>
+                            <td>
+                                {% if user.last_login %}
+                                    {{ user.last_login }}
+                                    {% else %}
+                                    Nigdy nie logowany
+                                    {% endif %}
+                            </td>
+                        </tr>
+                    {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+        <h1> Użytkownicy nieaktywni</h1>
+        <table class="usertable">
+            <thead>
+                <tr>
+                    <th>
+                        Adres Email
+                    </th>
+                    <th>
+                        Data rejestracji
+                    </th>
+                    <th>
+                       Usuwanie
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    {% if not user.is_active %}
+                        <tr>
+                            <td>
+                                {{ user.email }}
+                            </td>
+                            <td>
+                                {{ user.date_joined }}
+                            </td>
+                            <td>
+                                {% if user.can_be_deleted %}
+                                <form method="post" action="{% url 'delete_user' user.id %}" >
+                                {% csrf_token %}
+                                 <button type="submit" class="button2">Usuń</button>
+                                </form>
+                                {% else %}
+                                    Użytkownik ma czas na aktywację
+                                {% endif %}
+                      
+                            </td>
+                        </tr>
+                    {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    <p>
+        <a href="{% url 'home_management' %}" class="button">Wróć do strony zarządania</a>
+    </p>
+    </div>
+{% endblock %}

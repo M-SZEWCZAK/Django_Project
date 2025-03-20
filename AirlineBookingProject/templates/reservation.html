@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Reservation details
+{% endblock %}
+{% block miscellanea %}
+    <style>
+        .res_header {
+            background-image: url({{ photo }});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const passengers = {{ booking.passengers|safe }};  
+
+            const passengerListDiv = document.getElementById('passenger-list');
+
+            passengerListDiv.innerHTML = '';
+
+            if (passengers && passengers.length > 0) {
+                const table = document.createElement('table');
+                table.setAttribute('class', 'usertable');
+                
+                const headerRow = document.createElement('tr');
+                headerRow.innerHTML = `
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Obywatestwo</th>
+                    <th>Wiek</th>
+                    <th>Bagaż</th>
+                `;
+                table.appendChild(headerRow);
+
+                // Populate table rows
+                passengers.forEach(passenger => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${passenger.name}</td>
+                        <td>${passenger.surname}</td>
+                        <td>${passenger.nationality}</td>
+                        <td>${passenger.age}</td>
+                        <td>${passenger.luggage}</td>
+                    `;
+                    table.appendChild(row);
+                });
+
+                passengerListDiv.appendChild(table);
+            } else {
+                passengerListDiv.textContent = 'No passengers found.';
+            }
+        });
+    </script>
+{% endblock %}
+{% block login %}
+
+    Welcome, {{ request.user.email }}! <a href="/logout" class="button">Wyloguj się</a>
+        <a href="/myaccount" class="button">Moje konto</a>
+
+
+{% endblock %}
+{% block content %}
+    <div class="maindiv">
+    <div class="res_header">
+        
+        <h1>{{ city }}</h1>
+        <h3>{{ booking.flight_id.departure_time|date:"Y-m-d"  }}</h3>
+    </div>
+    <div class="flight_info">
+    <h2>Informacje o locie</h2>
+    <table class="fd">
+                    <tbody>
+                        <tr>
+                            <td>{{ booking.flight_id.departure_time|date:"Y-m-d" }}</td>
+                            <td></td>
+                            <td>{{ booking.flight_id.arrival_time|date:"Y-m-d" }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ booking.flight_id.departure_time|time:"H:i" }}</td>
+                            <td>-----{{ booking.flight_id.duration }}----></td>
+                            <td>{{ booking.flight_id.arrival_time|time:"H:i" }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ booking.flight_id.origin }}</td>
+                            <td></td>
+                            <td>{{ booking.flight_id.destination }}</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+        
+    <h2>Pasażerowie</h2>
+    <h3>Liczba pasażerów: {{ booking.passanger_number }}</h3>
+    <div id="passenger-list">
+        
+
+    </div>
+    </div>
+    <p>
+    <a href="/myaccount" class="button">Powrót</a>
+    </p>
+    </div>
+    {% endblock %}
